@@ -1,0 +1,11 @@
+- name: Generate Ceph admin keyring and save locally
+  hosts: all
+  tasks:
+    - name: Run Ceph command to generate admin keyring
+      shell: sudo ceph auth get-or-create client.admin > /tmp/.ceph.client.admin.keyring
+
+    - name: Fetch the file to the local machine
+      fetch:
+        src: "/tmp/.ceph.client.admin.keyring"
+        dest: "../.ceph-creds/ceph.client.admin.keyring"
+        flat: yes

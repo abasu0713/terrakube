@@ -1,0 +1,22 @@
+- name: Install and hold refresh for microceph
+  hosts: all
+  tasks:
+    - name: Ensure snapd is installed
+      package:
+        name: snapd
+        state: present
+
+    - name: Install microceph using snap
+      command: sudo snap install microceph
+      register: install_microceph
+      changed_when: "'microceph' in install_microceph.stdout"
+
+    - name: Hold snap refresh for microceph
+      command: sudo snap refresh --hold microceph
+      when: install_microceph is changed
+      register: hold_microceph
+
+    - name: Display install status
+      debug:
+        msg: "Microceph installed and refresh held."
+      when: install_microceph.changed

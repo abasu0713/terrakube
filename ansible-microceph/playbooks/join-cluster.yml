@@ -1,0 +1,5 @@
+- name: Join microceph cluster from worker node
+  hosts: all
+  tasks:
+    - name: Join the microceph cluster using the token from master node
+      command: sudo microceph cluster join {{ join_token }}

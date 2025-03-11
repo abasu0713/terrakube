@@ -1,0 +1,5 @@
+- name: Microceph cluster setup on master node
+  hosts: all
+  tasks:
+    - name: Add second node to the cluster
+      command: sudo microceph cluster add {{ worker_node }}

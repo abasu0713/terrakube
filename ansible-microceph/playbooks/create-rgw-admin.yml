@@ -1,0 +1,17 @@
+- name: Create RGW Admin Ops User
+  hosts: all
+  tasks:
+    - name: Create RGW Admin Ops User
+      shell: >
+        sudo radosgw-admin user create 
+        --uid={{ rgw_admin_uid }} 
+        --display-name="RGW Admin Ops User" 
+        --caps="users=*;buckets=*;metadata=read;usage=read;zone=read;info=read;user-policy=*;oidc-provider=*;roles=*;" 
+        --rgw-zonegroup=default 
+        --rgw-zone=default > /tmp/.{{rgw_admin_uid}}.json
+
+    - name: Fetch the file to the local machine
+      fetch:
+        src: "/tmp/.{{rgw_admin_uid}}.json"
+        dest: "../.ceph-creds/{{rgw_admin_uid}}.json"
+        flat: yes

@@ -1,0 +1,5 @@
+- name: Enable RGW on microceph cluster nodes
+  hosts: all
+  tasks:
+    - name: Enable RGW on specified nodes
+      command: sudo microceph enable rgw

@@ -1,0 +1,6 @@
+- name: Microceph cluster setup on master node
+  hosts: all
+  tasks:
+    - name: Bootstrap the microceph cluster on the first node
+      command: sudo microceph cluster bootstrap
+      

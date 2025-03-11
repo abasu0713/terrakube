@@ -1,0 +1,26 @@
+- name: Create RGW Account and Root User
+  hosts: all
+  tasks:
+    - name: Create AWS IAM Compatible Account
+      command: sudo radosgw-admin account create --account-name={{ account_name }} --email={{ account_email }}
+      register: account_create_output
+    
+    - name: Extract Account ID
+      set_fact:
+        root_account_id: "{{ (account_create_output.stdout | from_json).id }}"
+
+    - name: Create Account Root User
+      shell: >
+        sudo radosgw-admin user create
+        --uid={{ account_root_uid }}
+        --display-name="{{ account_root_display_name }}"
+        --account-id={{ root_account_id }}
+        --account-root
+        --gen-secret
+        --gen-access-key > /tmp/.rgw-account-{{ account_root_uid }}.json
+
+    - name: Fetch the file to the local machine
+      fetch:
+        src: "/tmp/.rgw-account-{{ account_root_uid }}.json"
+        dest: "../.ceph-creds/rgw-account-{{ account_root_uid }}.json"
+        flat: yes

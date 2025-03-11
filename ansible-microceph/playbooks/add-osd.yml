@@ -1,0 +1,12 @@
+- name: Add OSD storage to microceph cluster
+  hosts: all
+  tasks:
+    - name: Add disks to microceph as OSDs with wipe option
+      # Update as necessary
+      # command: sudo microceph disk add /dev/sda /dev/nvme0n1 --wipe
+      command: sudo microceph disk add {{ drives }} --wipe
+
+    # # OPTIONAL - if your primary OS has enough space
+    # - name: Add loop disks to microceph as OSDs 
+    #   # Update as necessary
+    #   command: sudo microceph disk add loop,75G,2

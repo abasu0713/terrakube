@@ -1,0 +1,15 @@
+- name: Disable Swap
+  hosts: all
+  become: true
+  tasks:
+    - name: Disable swap immediately
+      command: swapoff -a
+      changed_when: false
+
+    - name: Verify swap is disabled
+      command: free -h
+      register: swap_status
+      changed_when: false
+
+    - debug:
+        msg: "{{ swap_status.stdout }}"

@@ -1,0 +1,7 @@
+- name: Destroy microceph HA cluster
+  hosts: all
+  tasks:
+    - name: Remove microceph with purge
+      command: sudo snap remove microceph --purge
+      register: remove_microceph
+      changed_when: "'microceph removed' in remove_microceph.stdout or remove_microceph.stderr"

@@ -1,0 +1,11 @@
+- name: Generate minimal Ceph config and save locally
+  hosts: all
+  tasks:
+    - name: Run Ceph command and dump output to file
+      shell: sudo ceph config generate-minimal-conf > /tmp/.minimal-ceph.conf
+
+    - name: Fetch the file to the local machine
+      fetch:
+        src: "/tmp/.minimal-ceph.conf"
+        dest: "../.ceph-creds/minimal-ceph.conf"
+        flat: yes
