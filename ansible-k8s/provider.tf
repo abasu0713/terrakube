@@ -1,16 +1,16 @@
 terraform {
-  backend "s3" {
-    bucket                      = "home-lab"
-    key                         = "ansible-k8s/terraform.tfstate"
-    region                      = "default"
-    profile                     = "Terraform"
-    skip_region_validation      = true
-    skip_credentials_validation = true
-    skip_metadata_api_check     = true
-    force_path_style            = true
-    endpoint                    = "http://192.168.5.81"
-    # endpoint                    = "https://s3.arkobasu.space"
-  }
+  # To use RGW based s3 backend
+  # backend "s3" {
+  #   bucket                      = "home-lab"
+  #   key                         = "ansible-k8s/terraform.tfstate"
+  #   region                      = "default"
+  #   profile                     = "Terraform"
+  #   skip_region_validation      = true
+  #   skip_credentials_validation = true
+  #   skip_metadata_api_check     = true
+  #   force_path_style            = true
+  #   endpoint                    = ""
+  # }
   required_providers {
     ansible = {
       source  = "ansible/ansible"
