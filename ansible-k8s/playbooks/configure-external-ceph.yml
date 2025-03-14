@@ -1,0 +1,29 @@
+- name: Configure external ceph cluster
+  hosts: all
+  become: true
+  tasks:
+    - name: Make a directory for Ceph credentials
+      file:
+        path: /etc/ceph
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: Transfer Ceph minimal conf
+      copy:
+        src: ../../ansible-microceph/.ceph-creds/minimal-ceph.conf
+        dest: /etc/ceph/ceph.conf
+        owner: root
+        mode: '0644'
+    - name: Transfer Ceph Admin Keyring
+      copy:
+        src: ../../ansible-microceph/.ceph-creds/ceph.client.admin.keyring
+        dest: /etc/ceph/ceph.client.admin.keyring
+        owner: root
+        mode: '0644'
+    - name: Connect external Ceph to MicroK8s
+      command: >
+        sudo microk8s connect-external-ceph \
+        --ceph-conf /etc/ceph/ceph.conf \
+        --keyring /etc/ceph/ceph.client.admin.keyring \
+        --rbd-pool home-lab-k8s-rbd-pool

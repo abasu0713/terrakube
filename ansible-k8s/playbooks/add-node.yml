@@ -1,0 +1,5 @@
+- name: Add nodes to Microk8s cluster on master
+  hosts: all
+  tasks:
+    - name: Add a single node to the cluster
+      command: sudo microk8s add-node

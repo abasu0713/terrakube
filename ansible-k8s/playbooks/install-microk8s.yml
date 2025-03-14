@@ -1,0 +1,16 @@
+- name: Install and hold refresh for microk8s
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure snapd is installed
+      package:
+        name: snapd
+        state: present
+
+    - name: Install microceph using snap
+      command: sudo snap install microk8s --classic
+      register: install_microk8s
+      changed_when: "'microk8s' in install_microk8s.stdout"
+
+    - name: Wait Ready for node
+      command: sudo microk8s status --wait-ready

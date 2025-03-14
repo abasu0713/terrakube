@@ -1,0 +1,5 @@
+- name: Enable Addons on Microk8s cluster
+  hosts: all
+  tasks:
+    - name: Enable an addon
+      command: sudo microk8s enable {{ addon }}

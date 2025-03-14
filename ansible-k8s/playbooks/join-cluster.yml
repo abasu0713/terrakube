@@ -1,0 +1,5 @@
+- name: Join Microk8s cluster from node
+  hosts: all
+  tasks:
+    - name: Join the Microk8s cluster
+      command: sudo microk8s join {{ join_token }}

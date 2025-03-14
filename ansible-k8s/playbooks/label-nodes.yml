@@ -1,0 +1,6 @@
+# A playbook for labeling nodes in a Kubernetes cluster
+- name: Label nodes in a Kubernetes cluster
+  hosts: all
+  tasks:
+    - name: Label a node
+      command: sudo microk8s kubectl label nodes {{ host }} {{ labels }}

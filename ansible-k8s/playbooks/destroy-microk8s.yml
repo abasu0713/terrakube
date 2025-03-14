@@ -1,0 +1,7 @@
+- name: Destroy microk8s cluster
+  hosts: all
+  tasks:
+    - name: Remove microk8s with purge
+      command: sudo snap remove microk8s --purge
+      register: remove_microk8s
+      changed_when: "'microk8s removed' in remove_microk8s.stdout or remove_microk8s.stderr"
