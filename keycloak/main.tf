@@ -31,6 +31,7 @@ resource "helm_release" "keycloak" {
     auth:
       adminUser: admin-temp
 
+    # Update the KEYCLOAK_FRONTEND_URL to your domain
     extraEnvVars:
       - name: KEYCLOAK_FRONTEND_URL
         value: https://auth.arkobasu.space
