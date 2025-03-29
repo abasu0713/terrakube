@@ -34,7 +34,7 @@ resource "helm_release" "keycloak" {
     # Update the KEYCLOAK_FRONTEND_URL to your domain
     extraEnvVars:
       - name: KEYCLOAK_FRONTEND_URL
-        value: https://auth.arkobasu.space
+        value: https://auth.<your-domain>.com
 
     # Uncomment if you have custom themes and change the URL from where to download it
     # initContainers:
