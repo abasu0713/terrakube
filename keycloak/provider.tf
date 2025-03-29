@@ -1,15 +1,4 @@
 terraform {
-  backend "s3" {
-    bucket                      = "home-lab"
-    key                         = "keycloak-app/terraform.tfstate"
-    region                      = "default"
-    profile                     = "Terraform"
-    skip_region_validation      = true
-    skip_credentials_validation = true
-    skip_metadata_api_check     = true
-    force_path_style            = true
-    endpoint                    = "http://192.168.5.81"
-  }
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
